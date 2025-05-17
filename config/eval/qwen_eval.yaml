@@ -1,0 +1,19 @@
+eval:
+  - draft_k:
+      - 12
+      - 0
+    tokens:
+      - 512
+    draft:
+      - amd/PARD-Qwen2.5-0.5B
+    target:
+      - Qwen/Qwen2.5-7B-Instruct
+    benchmark:
+      - humaneval
+      - gsm8k
+    para:
+      - true
+    nc:
+      - false
+    maxtune:
+      - true

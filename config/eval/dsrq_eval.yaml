@@ -1,0 +1,19 @@
+eval:
+  - draft_k:
+      - 12
+      - 0
+    tokens:
+      - 512
+    draft:
+      - amd/PARD-DeepSeek-R1-Distill-Qwen-1.5B
+    target:
+      - deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+    benchmark:
+      - humaneval
+      - gsm8k
+    para:
+      - true
+    nc:
+      - false
+    maxtune:
+      - true

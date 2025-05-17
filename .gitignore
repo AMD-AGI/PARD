@@ -1,0 +1,6 @@
+datas/result/
+datas/ckpt/
+cache/
+c/
+debug*
+__pycache__/

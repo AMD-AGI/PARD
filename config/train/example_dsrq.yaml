@@ -1,0 +1,35 @@
+general:
+  model_name: Qwen/Qwen2.5-0.5B-Instruct
+  save_base_path: ./datas/ckpt
+  data_path: 
+    - ./datas/training_example/example.json
+  para_num: 8
+  unused_tokenids: [151665, 151665, 151665, 151665, 151665, 151665, 151665, 151665, 151665]
+  down_sample_ration: 0.7
+  down_sample_ration_min: 0.2
+  exp_name:
+
+train:
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  lr_scheduler_type: 'constant'
+  save_steps: 5000
+  save_total_limit: 10
+  logging_steps: 20
+  max_seq_length: 1024
+  learning_rate: 0.00008
+  num_train_epochs: 4
+  report_to: 'none'
+  gradient_checkpointing: True
+  dataloader_num_workers: 8
+
+
+data:
+  prompt_type: r1
+  prompt_template: 
+    llama3: '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n{answer}<|eot_id|>'
+    qwen: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n{answer}<|im_end|>'
+    r1: '<｜User｜>{prompt}<｜Assistant｜>{answer}<｜end▁of▁sentence｜>'
+
+
+
