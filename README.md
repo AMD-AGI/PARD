@@ -111,7 +111,22 @@ python3 -m pard.infer -c config/eval/qwen_eval.yaml
 
 ## Inference with vllm
 
-Coming soon
+**Setup**
+
+```bash
+git clone -b model/integrate-pard-0521 https://github.com/zihaoanllm/vllm.git
+cd vllm
+
+# Set up using Python-only build
+# Other installation methods can be found in the official vLLM documentation.
+VLLM_USE_PRECOMPILED=1 pip install --editable .
+```
+
+**Inference**
+
+```bash
+python3 -m utils.vllm_infer
+```
 
 ## Training Example
 
