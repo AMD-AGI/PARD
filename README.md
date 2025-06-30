@@ -24,6 +24,9 @@ PARD is a high-performance speculative decoding method that also enables low-cos
   <br><div align="center" width="90%"><em>AR and AR+ represent baseline auto-regressive generation using Transformers and Transformers+, respectively. VSD denotes vanilla speculative decoding. PARD refers to the proposed method in this work.</em></div><br>
 </p>
 
+## Update
+- **2025.06.30**: Support vLLM.
+
 ## Installation
 
 ### Base Docker
