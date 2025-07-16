@@ -87,7 +87,7 @@ def main():
     speed = []
     for output in outputs:
         speed.append([len(output.outputs[0].token_ids), (output.metrics.finished_time - output.metrics.first_token_time)])
-        print(f"[anwer]:\n {output.outputs[0].text}")
+        print(f"[answer]:\n {output.outputs[0].text}")
 
     print(f"\n\n{'='*100}\n\n")
     print(f'[speed]: {np.array(speed)[:,0].sum() / np.array(speed)[:,1].sum()}\n')
