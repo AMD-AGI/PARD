@@ -25,6 +25,7 @@ PARD is a high-performance speculative decoding method that also enables low-cos
 </p>
 
 ## Update
+- **2025.10.20**: Support Llama4
 - **2025.07.16**: Support Qwen3
 - **2025.06.30**: Support vLLM.
 
@@ -51,6 +52,7 @@ pip3 install -r requirement.txt --no-build-isolation
 | Model Series | Model Name                            | Download      |
 |--------------|---------------------------------------|---------------|
 | llama3       | PARD-Llama-3.2-1B                     | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Llama-3.2-1B)  |
+| llama4       | PARD-Llama-4-1B                       | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Llama-4-1B)  |
 | DSR Qwen     | PARD-DeepSeek-R1-Distill-Qwen-1.5B    | [🤗 HuggingFace](https://huggingface.co/amd/PARD-DeepSeek-R1-Distill-Qwen-1.5B) |
 | Qwen         | PARD-Qwen2.5-0.5B                     | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Qwen2.5-0.5B) |
 | Qwen3        | PARD-Qwen3-0.6B                       | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Qwen3-0.6B) |
