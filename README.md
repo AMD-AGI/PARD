@@ -42,7 +42,7 @@ nvcr.io/nvidia/pytorch:25.02-py3
 
 ### Requiremets
 ```
-git clone https://github.com/AMD-AIG-AIMA/PARD
+git clone https://github.com/AMD-AGI/PARD
 cd PARD
 pip3 install -r requirement.txt --no-build-isolation
 ```
