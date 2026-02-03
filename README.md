@@ -25,6 +25,7 @@ PARD is a high-performance speculative decoding method that also enables low-cos
 </p>
 
 ## Update
+- **2026.01.26**: PARD is accepted to ICLR'26.
 - **2025.10.20**: Support Llama4
 - **2025.07.16**: Support Qwen3
 - **2025.06.30**: Support vLLM.
