@@ -25,6 +25,7 @@ PARD is a high-performance speculative decoding method that also enables low-cos
 </p>
 
 ## Update
+- **2026.02.06**: PARD is now officially supported in vLLM!
 - **2026.01.26**: PARD is accepted to ICLR'26.
 - **2025.10.20**: Support Llama4
 - **2025.07.16**: Support Qwen3
@@ -119,9 +120,14 @@ python3 -m pard.infer -c config/eval/qwen_eval.yaml
 
 ## Inference with vllm
 
-**Setup**
+**vllm official example:**
+- **Test example**: [link](https://github.com/vllm-project/vllm/blob/1363e3d6d5659b58376fa5284afc2c8be548cc9d/tests/v1/e2e/test_spec_decode.py#L679-L692)
+- **Related PR**: [link](https://github.com/vllm-project/vllm/pull/32887)
 
+**vllm v0 example (old):**
+- **Setup**
 ```bash
+# for VLLM V0
 git clone -b model/integrate-pard-0521 https://github.com/zihaoanllm/vllm.git
 cd vllm
 
@@ -130,7 +136,7 @@ cd vllm
 VLLM_USE_PRECOMPILED=1 pip install --editable .
 ```
 
-**Inference**
+- **Inference**
 
 ```bash
 python3 -m utils.vllm_infer
