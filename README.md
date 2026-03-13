@@ -31,6 +31,22 @@ PARD is a high-performance speculative decoding method that also enables low-cos
 - **2025.07.16**: Support Qwen3
 - **2025.06.30**: Support vLLM.
 
+## PARD results on vLLM v1
+- The PARD results reported in the paper were obtained with vLLM v0. The table below presents the results on vLLM v1, which achieve higher speedups.
+- The vLLM version used is v0.16.0 (V1 engine). For EAGLE3, Llama 3.1 8B and Llama 3.3 70B use the official EAGLE3 model weights, while Qwen3 8B uses the AngelSlim/Qwen3-8B_eagle3 model weights. Qwen3 was evaluated in no-thinking mode, and the optimal draft_k was selected for each model and task.
+
+| method   | target model | framework     | device | humaneval tps | humaneval speedup | gsm8k tps | gsm8k speedup | mt_bench tps | mt_bench speedup | average tps | average speedup |
+|----------|--------------|---------------|--------|---------------|-------------------|-----------|---------------|--------------|------------------|-------------|-----------------|
+| Baseline | L3.1 8B      | vllm-v0.16.0  | A100   | 78.43         | 1.00              | 78.43     | 1.00          | 78.37        | 1.00             | 78.41       | 1.00            |
+| EAGLE3   | L3.1 8B      | vllm-v0.16.0  | A100   | 245.10        | 3.13              | 204.08    | 2.60          | 189.39       | 2.42             | 212.86      | 2.71            |
+| PARD     | L3.1 8B      | vllm-v0.16.0  | A100   | **373.13**    | **4.76**          | **313.48**| **4.00**      | **213.22**   | **2.72**         | **299.94**  | **3.83**        |
+| Baseline | Q3 8B        | vllm-v0.16.0  | A100   | 76.51         | 1.00              | 76.57     | 1.00          | 76.39        | 1.00             | 76.49       | 1.00            |
+| EAGLE3   | Q3 8B        | vllm-v0.16.0  | A100   | 160.51        | 2.10              | 146.63    | 1.91          | 127.06       | 1.66             | 144.74      | 1.89            |
+| PARD     | Q3 8B        | vllm-v0.16.0  | A100   | **386.10**    | **5.05**          | **336.70**| **4.40**      | **192.31**   | **2.52**         | **305.04**  | **3.99**        |
+| Baseline | l3.3 70B     | vllm-v0.16.0  | H20    | 70.08         | 1.00              | 70.92     | 1.00          | 70.97        | 1.00             | 70.66       | 1.00            |
+| EAGLE3   | l3.3 70B     | vllm-v0.16.0  | H20    | 251.89        | 3.59              | 208.33    | 2.94          | 187.27       | 2.64             | 215.83      | 3.06            |
+| PARD     | l3.3 70B     | vllm-v0.16.0  | H20    | **377.36**    | **5.38**          | **320.51**| **4.52**      | **191.57**   | **2.70**         | **296.48**  | **4.20**        |
+
 ## Installation
 
 ### Base Docker
@@ -42,7 +58,7 @@ rocm/pytorch:rocm6.3.2_ubuntu22.04_py3.10_pytorch_release_2.5.1_preview
 nvcr.io/nvidia/pytorch:25.02-py3
 ```
 
-### Requiremets
+### Requirements
 ```
 git clone https://github.com/AMD-AGI/PARD
 cd PARD
@@ -118,29 +134,10 @@ python3 -m pard.infer -c config/eval/qwen_eval.yaml
   *(default: None)*
   Sets the maximum cache length for the model. If not provided, it defaults to the value of tokens.
 
-## Inference with vllm
+## Inference with vLLM
 
-**vllm official example:**
-- **Test example**: [link](https://github.com/vllm-project/vllm/blob/1363e3d6d5659b58376fa5284afc2c8be548cc9d/tests/v1/e2e/test_spec_decode.py#L679-L692)
-- **Related PR**: [link](https://github.com/vllm-project/vllm/pull/32887)
+PARD has already been integrated into vLLM. Official example: [Document](https://docs.vllm.ai/en/latest/features/speculative_decoding/parallel_draft_model/?h=pard#parallel-draft-models)
 
-**vllm v0 example (old):**
-- **Setup**
-```bash
-# for VLLM V0
-git clone -b model/integrate-pard-0521 https://github.com/zihaoanllm/vllm.git
-cd vllm
-
-# Set up using Python-only build
-# Other installation methods can be found in the official vLLM documentation.
-VLLM_USE_PRECOMPILED=1 pip install --editable .
-```
-
-- **Inference**
-
-```bash
-python3 -m utils.vllm_infer
-```
 
 ## Training Example
 
