@@ -176,4 +176,10 @@ python3 -m pard.train -c config/train/example_qwen.yaml
   journal={arXiv preprint arXiv:2504.18583},
   year={2025}
 }
+@article{an2026pard,
+  title={PARD-2: Target-Aligned Parallel Draft Model for Dual-Mode Speculative Decoding},
+  author={An, Zihao and Liu, Taichi and Liu, Ziqiong and Li, Dong and Liu, Ruofeng and Barsoum, Emad},
+  journal={arXiv preprint arXiv:2605.08632},
+  year={2026}
+}
 ```
