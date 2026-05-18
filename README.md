@@ -13,6 +13,12 @@
 
 **PARD** is a family of high-performance speculative decoding methods designed to accelerate Large Language Model (LLM) inference with efficient parallel draft models.
 
+<p align="center">
+  <picture><img src="datas/img/pard_2.png" width="90%"></picture>
+  <br><div align="center" width="90%"><em>Throughput and Latency Trade-offs on vLLM. PARD-2 consistently achieves a superior
+Pareto frontier across various batch sizes from 1 to 64.</em></div><br>
+</p>
+
 ### PARD
 
 **PARD** introduces **PARallel Draft** model adaptation, enabling autoregressive (AR) draft models to be converted into parallel draft models at low training cost. It offers the following advantages:
@@ -36,11 +42,7 @@
 - **State-of-the-Art Performance**: Across diverse models and tasks, PARD-2 achieves up to **6.94× lossless acceleration**. On LLaMA3.1-8B, PARD-2 surpasses EAGLE-3 by **1.9×** and PARD by **1.3×**, setting a new performance frontier for speculative decoding.
 
 
-<p align="center">
-  <picture><img src="datas/img/pard_2.png" width="90%"></picture>
-  <br><div align="center" width="90%"><em>Throughput and Latency Trade-offs on vLLM. PARD-2 consistently achieves a superior
-Pareto frontier across various batch sizes from 1 to 64.</em></div><br>
-</p>
+
 
 
 
