@@ -1,37 +1,58 @@
 <img src="datas/img/img_logo.png" alt="PARD" width="100" align="left">
 <div align="center">
-<h1>PARD: Accelerating LLM Inference with Low-Cost PARallel Draft Model Adaptation</h1>
+<h1>PARD</h1>
 </div>
 
 <p align="center"> |
-<a href="https://arxiv.org/abs/2504.18583"><b>Paper</b></a> | 
+<a href="https://arxiv.org/abs/2504.18583"><b>Paper (PARD)</b></a> |
+<a href="https://arxiv.org/abs/2605.08632"><b>Paper (PARD-2)</b></a> | 
 <a href="https://www.amd.com/en/developer/resources/technical-articles/accelerating-generative-llms-interface-with-parallel-draft-model-pard.html"><b>Blog</b></a> |
 </p>
 
 ## Introduction
 
-PARD is a high-performance speculative decoding method that also enables low-cost adaptation of autoregressive draft models into parallel draft models. It offers the following advantages:
+**PARD** is a family of high-performance speculative decoding methods designed to accelerate Large Language Model (LLM) inference with efficient parallel draft models.
 
-- **Low-Cost Training**: PARD adapts AR (autoregressive) draft models into parallel draft models with minimal overhead. Compared to pure AR draft models, PARD achieves an average inference speedup of 1.78×. By introducing a conditional drop-token strategy, PARD improves training efficiency by up to 3× while maintaining the same level of accuracy.
+### PARD
 
-- **Generalizability**: Thanks to its target-independent design, a single PARD draft model can accelerate an entire family of target models. This contrasts with target-dependent approaches such as Medusa and EAGLE, which require retraining or tuning for each new target. As a result, PARD significantly reduces both deployment complexity and adaptation cost.
+**PARD** introduces **PARallel Draft** model adaptation, enabling autoregressive (AR) draft models to be converted into parallel draft models at low training cost. It offers the following advantages:
 
-- **High Performance**: When integrated into an optimized inference framework called Transformers+ PARD delivers up to a 4.08× speedup, with LLaMA3.1 8B reaches a state-of-the-art 311.5 tokens per second. When integrated into vLLM, PARD delivers up to 3.06× speedup, outperforming other speculative decoding methods in vLLM by 1.51×.
+- **Low-Cost Training**: PARD adapts AR draft models into parallel draft models with minimal overhead. By introducing a COnditional Drop-token (COD) strategy, PARD improves draft-model training efficiency by up to **3×** while maintaining strong accuracy.
+
+- **Target Independence**: Thanks to its target-independent design, a single PARD draft model can accelerate an entire family of target models. This contrasts with target-dependent approaches such as Medusa and EAGLE, which require retraining or tuning for each new target model. As a result, PARD significantly reduces deployment complexity and adaptation cost.
+
+- **High Performance**: PARD achieves strong acceleration in optimized inference frameworks. When integrated into vLLM, PARD achieves up to **3.67×** speedup on LLaMA3.1-8B, reaching **264.88 tokens/s**, and outperforms EAGLE-3 by **1.15×**.
+
+### PARD-2
+
+**PARD-2** further advances PARD by introducing a **Target-Aligned Parallel Draft Model** for **dual-mode speculative decoding**. Instead of optimizing draft models only for token-level prediction accuracy, PARD-2 aligns draft-model training with the inference-time objective of maximizing consecutive token acceptance. PARD-2 offers the following advantages:
+
+- **Target-Aligned Optimization**: PARD-2 reformulates the draft-model objective from next-token prediction accuracy to acceptance-length optimization, better matching the draft-then-verify process used during speculative decoding.
+
+- **Confidence-Adaptive Token Optimization**: PARD-2 introduces **Confidence-Adaptive Token (CAT)** optimization, which adaptively reweights tokens according to their contribution to the verification process. This improves the alignment between draft generation and target-model acceptance.
+
+- **Dual-Mode Speculative Decoding**: A single PARD-2 draft model supports both **target-independent** and **target-dependent** modes, combining the deployment flexibility of PARD with the stronger alignment capability of target-aware methods.
+
+- **State-of-the-Art Performance**: Across diverse models and tasks, PARD-2 achieves up to **6.94× lossless acceleration**. On LLaMA3.1-8B, PARD-2 surpasses EAGLE-3 by **1.9×** and PARD by **1.3×**, setting a new performance frontier for speculative decoding.
 
 
 <p align="center">
-  <picture><img src="datas/img/img_speed.png" width="90%"></picture>
-  <br><div align="center" width="90%"><em>AR and AR+ represent baseline auto-regressive generation using Transformers and Transformers+, respectively. VSD denotes vanilla speculative decoding. PARD refers to the proposed method in this work.</em></div><br>
+  <picture><img src="datas/img/pard_2.png" width="90%"></picture>
+  <br><div align="center" width="90%"><em>Throughput and Latency Trade-offs on vLLM. PARD-2 consistently achieves a superior
+Pareto frontier across various batch sizes from 1 to 64.</em></div><br>
 </p>
 
+
+
 ## Update
+- **2026.05.09**: The PARD-2 paper has been released! Code and model checkpoints will be released soon.
 - **2026.02.06**: PARD is now officially supported in vLLM!
 - **2026.01.26**: PARD is accepted to ICLR'26.
 - **2025.10.20**: Support Llama4
 - **2025.07.16**: Support Qwen3
 - **2025.06.30**: Support vLLM.
 
-## PARD results on vLLM v1
+## PARD results on vLLM v1 Engine
 - The PARD results reported in the paper were obtained with vLLM v0. The table below presents the results on vLLM v1, which achieve higher speedups.
 - The vLLM version used is v0.16.0 (V1 engine). For EAGLE3, Llama 3.1 8B and Llama 3.3 70B use the official EAGLE3 model weights, while Qwen3 8B uses the AngelSlim/Qwen3-8B_eagle3 model weights. Qwen3 was evaluated in no-thinking mode, and the optimal draft_k was selected for each model and task.
 
