@@ -47,7 +47,8 @@ Pareto frontier across various batch sizes from 1 to 64.</em></div><br>
 
 
 ## Update
-- **2026.05.09**: The PARD-2 paper has been released! Code and model checkpoints will be released soon.
+- **2026.06.10**: The PARD-2 model weights, training code, and inference code are now available.
+- **2026.05.09**: The PARD-2 paper has been released!
 - **2026.02.06**: PARD is now officially supported in vLLM!
 - **2026.01.26**: PARD is accepted to ICLR'26.
 - **2025.10.20**: Support Llama4
@@ -119,11 +120,6 @@ python3 -m pard.infer -c config/eval/llama3_eval.yaml
 python3 -m pard.infer -f pard/pard2_infer.py -c config/eval/pard2_l3_eval.yaml
 ```
 
-### DeepSeek-R1-Distill-Qwen Series
-```
-python3 -m pard.infer -c config/eval/dsrq_eval.yaml
-```
-
 ### Qwen Series
 ```
 #### PARD-1
@@ -178,6 +174,10 @@ python3 -m pard.infer -f pard/pard2_infer.py -c config/eval/pard2_q3_eval.yaml
 ## Inference with vLLM
 
 PARD has already been integrated into vLLM. Official example: [Document](https://docs.vllm.ai/en/latest/features/speculative_decoding/parallel_draft_model/?h=pard#parallel-draft-models)
+
+## Inference with TensorRT-LLM
+
+PARD has also been integrated into TensorRT-LLM. Official example: [Document](https://nvidia.github.io/TensorRT-LLM/features/speculative-decoding.html#pard)
 
 
 ## Training Example
