@@ -1,0 +1,21 @@
+eval:
+  - draft_k:
+      - 15
+    tokens:
+      - 256
+    draft:
+      - amd/PARD2-Qwen3-8B
+    target:
+      - Qwen/Qwen3-8B
+    benchmark:
+      - humaneval
+      # - gsm8k
+      # - mt_bench
+    para:
+      - true
+    nc:
+      - false
+    maxtune:
+      - true
+    max_cache_len:
+      - 1024

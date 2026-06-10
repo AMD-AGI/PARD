@@ -1,4 +1,5 @@
 import click
+import glob
 import os
 import yaml
 import itertools
@@ -7,9 +8,10 @@ import json
 from datetime import datetime
 import multiprocessing
 import gc
-from pard.pard_infer import PardInfer
+import importlib
 
-def worker(kwargs, queue):
+def worker(kwargs, PardInfer, queue):
+    print(kwargs)
     infer = PardInfer(**kwargs)
     result = infer.eval()
     kwargs['result'] = result
@@ -22,19 +24,34 @@ def worker(kwargs, queue):
 
 @click.command()
 @click.option('-c', '--config_path', default='config/eval/eval.yaml')
-def main(config_path):
+@click.option('-f', '--file', default='pard/pard_infer.py')
+def main(config_path, file):
+    mod = importlib.import_module(file[:-3].replace('/', '.'))
+    PardInfer = getattr(mod, "PardInfer")
     with open(config_path, "r", encoding="utf-8") as f:
         eval_kwargs_all = yaml.safe_load(f)
     
     out = []
     for eval_kwargs in eval_kwargs_all['eval']:
+        ## TODO auto eval
+        draft = eval_kwargs['draft']
+        new_draft = []
+        for i in draft:
+            if '*' in i:
+                # new_draft.extend([j for j in glob.glob(i) if '_warp_' not in j])
+                new_draft.extend([j for j in glob.glob(i)])
+            else:
+                new_draft.append(i)
+        eval_kwargs['draft'] = new_draft
+        ## 
+
         keys = list(eval_kwargs.keys())
         values_lists = [eval_kwargs[key] for key in keys]
         
         for combination in itertools.product(*values_lists):
             kwargs = dict(zip(keys, combination))
             q = multiprocessing.Queue()
-            p = multiprocessing.Process(target=worker, args=(kwargs, q))
+            p = multiprocessing.Process(target=worker, args=(kwargs, PardInfer, q))
             p.start()
             p.join()  
             result = q.get()

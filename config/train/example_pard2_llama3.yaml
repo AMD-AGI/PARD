@@ -1,0 +1,51 @@
+general:
+  model_name: unsloth/Llama-3.2-1B-Instruct
+  save_base_path: ../ckpt/pard_exp/l3_pard2_example
+  data_path: 
+    - ./datas/training_example/example.json
+  para_num: 16
+  unused_tokenids: [128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020, 128020]
+  down_sample_ration: 0.7
+  down_sample_ration_min: 0.1
+  exp_name:
+  target_model_name: 'unsloth/Llama-3.1-8B-Instruct'
+  feat_scale: 0.02
+  auto_resume: true          
+  resume_from_checkpoint: null
+  target_layers: [-1,-8,-16,-24]
+  target_feat_mask: 0.2
+
+loss:
+  ce_alpha: 0.1
+  kd_alpha: 1.0
+  kd_temperature: 1.0
+
+collator:
+  end_token_id: 128007
+
+train:
+  per_device_train_batch_size: 8
+  gradient_accumulation_steps: 1
+  lr_scheduler_type: 'constant'
+  save_steps: 40
+  save_total_limit: 30
+  logging_steps: 1
+  max_seq_length: 512
+  learning_rate: 0.00001
+  num_train_epochs: 4
+  report_to: 'none'
+  gradient_checkpointing: True
+  dataset_num_proc: 64
+  ddp_timeout: 7200
+  dataloader_num_workers: 4
+
+
+data:
+  prompt_type: llama3
+  prompt_template: 
+    llama3: '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n{answer}<|eot_id|>'
+    qwen: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n{answer}<|im_end|>'
+    r1: '<｜User｜>{prompt}<｜Assistant｜>{answer}<｜end▁of▁sentence｜>'
+
+
+
