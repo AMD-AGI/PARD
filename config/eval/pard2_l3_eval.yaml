@@ -1,0 +1,21 @@
+eval:
+  - draft_k:
+      - 15
+    tokens:
+      - 256
+    draft:
+      - amd/PARD2-Llama-3.1-8B
+    target:
+      - unsloth/Llama-3.1-8B-Instruct
+    benchmark:
+      - humaneval
+      # - gsm8k
+      # - mt_bench
+    para:
+      - true
+    nc:
+      - false
+    maxtune:
+      - true
+    max_cache_len:
+      - 1024

@@ -1,0 +1,53 @@
+general:
+  model_name: Qwen/Qwen3-0.6B
+  save_base_path: ../ckpt/pard_exp/q3_pard2_example
+  data_path: 
+    - ./datas/training_example/example.json
+  para_num: 16
+  unused_tokenids: [151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670, 151670]
+  down_sample_ration: 0.7
+  down_sample_ration_min: 0.1
+  exp_name:
+  target_model_name: Qwen/Qwen3-8B
+  feat_scale: 0.02
+  auto_resume: true          
+  resume_from_checkpoint: null
+  target_layers: [-1,-8,-16,-24]
+  target_feat_mask: 0.1
+loss:
+  ce_alpha: 0.1
+  kd_alpha: 1.0
+  kd_temperature: 1.0
+
+collator:
+  end_token_id: 151644
+
+train:
+  per_device_train_batch_size: 4
+  gradient_accumulation_steps: 2
+  lr_scheduler_type: 'cosine_with_min_lr'
+  lr_scheduler_kwargs:
+    min_lr_rate: 0.1
+  warmup_ratio: 0.03
+  save_steps: 20
+  save_total_limit: 30
+  logging_steps: 1
+  max_seq_length: 1024
+  learning_rate: 0.00003
+  num_train_epochs: 4
+  report_to: 'none'
+  gradient_checkpointing: True
+  dataset_num_proc: 64
+  ddp_timeout: 7200
+  dataloader_num_workers: 4
+
+
+data:
+  prompt_type: qwen
+  prompt_template: 
+    llama3: '<|begin_of_text|><|start_header_id|>system<|end_header_id|>\n\nYou are a helpful assistant<|eot_id|><|start_header_id|>user<|end_header_id|>\n\n{prompt}<|eot_id|><|start_header_id|>assistant<|end_header_id|>\n\n{answer}<|eot_id|>'
+    qwen: '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n{answer}<|im_end|>'
+    r1: '<｜User｜>{prompt}<｜Assistant｜>{answer}<｜end▁of▁sentence｜>'
+
+
+

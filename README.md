@@ -58,17 +58,19 @@ Pareto frontier across various batch sizes from 1 to 64.</em></div><br>
 - The PARD results reported in the paper were obtained with vLLM v0. The table below presents the results on vLLM v1, which achieve higher speedups.
 - The vLLM version used is v0.16.0 (V1 engine). For EAGLE3, Llama 3.1 8B and Llama 3.3 70B use the official EAGLE3 model weights, while Qwen3 8B uses the AngelSlim/Qwen3-8B_eagle3 model weights. Qwen3 was evaluated in no-thinking mode, and the optimal draft_k was selected for each model and task.
 
-| method   | target model | framework     | device | humaneval tps | humaneval speedup | gsm8k tps | gsm8k speedup | mt_bench tps | mt_bench speedup | average tps | average speedup |
-|----------|--------------|---------------|--------|---------------|-------------------|-----------|---------------|--------------|------------------|-------------|-----------------|
-| Baseline | L3.1 8B      | vllm-v0.16.0  | A100   | 78.43         | 1.00              | 78.43     | 1.00          | 78.37        | 1.00             | 78.41       | 1.00            |
-| EAGLE3   | L3.1 8B      | vllm-v0.16.0  | A100   | 245.10        | 3.13              | 204.08    | 2.60          | 189.39       | 2.42             | 212.86      | 2.71            |
-| PARD     | L3.1 8B      | vllm-v0.16.0  | A100   | **373.13**    | **4.76**          | **313.48**| **4.00**      | **213.22**   | **2.72**         | **299.94**  | **3.83**        |
-| Baseline | Q3 8B        | vllm-v0.16.0  | A100   | 76.51         | 1.00              | 76.57     | 1.00          | 76.39        | 1.00             | 76.49       | 1.00            |
-| EAGLE3   | Q3 8B        | vllm-v0.16.0  | A100   | 160.51        | 2.10              | 146.63    | 1.91          | 127.06       | 1.66             | 144.74      | 1.89            |
-| PARD     | Q3 8B        | vllm-v0.16.0  | A100   | **386.10**    | **5.05**          | **336.70**| **4.40**      | **192.31**   | **2.52**         | **305.04**  | **3.99**        |
-| Baseline | l3.3 70B     | vllm-v0.16.0  | H20    | 70.08         | 1.00              | 70.92     | 1.00          | 70.97        | 1.00             | 70.66       | 1.00            |
-| EAGLE3   | l3.3 70B     | vllm-v0.16.0  | H20    | 251.89        | 3.59              | 208.33    | 2.94          | 187.27       | 2.64             | 215.83      | 3.06            |
-| PARD     | l3.3 70B     | vllm-v0.16.0  | H20    | **377.36**    | **5.38**          | **320.51**| **4.52**      | **191.57**   | **2.70**         | **296.48**  | **4.20**        |
+| method       | target model | framework      | device   | humaneval tps | humaneval speedup | gsm8k tps | gsm8k speedup | mt_bench tps | mt_bench speedup | average tps | average speedup |
+|--------------|--------------|----------------|----------|---------------|-------------------|-----------|---------------|--------------|------------------|-------------|-----------------|
+| Baseline     | L3.1 8B      | vllm-v0.16.0   | A100     | 78.43         | 1.00              | 78.43     | 1.00          | 78.37        | 1.00             | 78.41       | 1.00            |
+| EAGLE3       | L3.1 8B      | vllm-v0.16.0   | A100     | 245.10        | 3.13              | 204.08    | 2.60          | 189.39       | 2.42             | 212.86      | 2.71            |
+| PARD         | L3.1 8B      | vllm-v0.16.0   | A100     | 373.13        | 4.76              | 313.48    | 4.00          | 213.22       | 2.72             | 299.94      | 3.83            |
+| PARD-2 (TD)  | L3.1 8B      | vLLM           | A100     | **544.30**    | **6.94**          | **408.62**| **5.21**      | **254.70**   | **3.25**         | **402.54**  | **5.13**        |
+| Baseline     | l3.3 70B     | vllm-v0.16.0   | H20      | 70.08         | 1.00              | 70.92     | 1.00          | 70.97        | 1.00             | 70.66       | 1.00            |
+| EAGLE3       | l3.3 70B     | vllm-v0.16.0   | H20      | 251.89        | 3.59              | 208.33    | 2.94          | 187.27       | 2.64             | 215.83      | 3.06            |
+| PARD         | l3.3 70B     | vllm-v0.16.0   | H20      | **377.36**    | **5.38**          | **320.51**| **4.52**      | **191.57**   | **2.70**         | **296.48**  | **4.20**        |
+| Baseline     | Q3 8B        | vllm-v0.16.0   | A100     | 76.51         | 1.00              | 76.57     | 1.00          | 76.39        | 1.00             | 76.49       | 1.00            |
+| EAGLE3       | Q3 8B        | vllm-v0.16.0   | A100     | 160.51        | 2.10              | 146.63    | 1.91          | 127.06       | 1.66             | 144.74      | 1.89            |
+| PARD         | Q3 8B        | vllm-v0.16.0   | A100     | 386.10        | 5.05              | 336.70    | 4.40          | 192.31       | 2.52             | 305.04      | 3.99            |
+| PARD-2 (TD)  | Q3 8B        | vLLM           | A100     | **516.44**    | **6.75**          | **493.11**| **6.44**      | **241.39**   | **3.16**         | **416.98**  | **5.45**        |
 
 ## Installation
 
@@ -89,7 +91,7 @@ pip3 install -r requirement.txt --no-build-isolation
 ```
 
 ## Model Weights
-
+### PARD1
 | Model Series | Model Name                            | Download      |
 |--------------|---------------------------------------|---------------|
 | llama3       | PARD-Llama-3.2-1B                     | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Llama-3.2-1B)  |
@@ -98,11 +100,23 @@ pip3 install -r requirement.txt --no-build-isolation
 | Qwen         | PARD-Qwen2.5-0.5B                     | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Qwen2.5-0.5B) |
 | Qwen3        | PARD-Qwen3-0.6B                       | [🤗 HuggingFace](https://huggingface.co/amd/PARD-Qwen3-0.6B) |
 
+
+### PARD2
+| Model Series | Model Name                            | Download      |
+|--------------|---------------------------------------|---------------|
+| llama3       | amd/PARD2-Llama-3.1-8B                   | [🤗 HuggingFace](https://huggingface.co/amd/PARD2-Llama-3.1-8B )  |
+| Qwen3        | amd/PARD2-Qwen3-8B                     | [🤗 HuggingFace](https://huggingface.co/amd/PARD2-Qwen3-8B) |
+| Qwen3        | amd/PARD2-Qwen3-14B                      | [🤗 HuggingFace](https://huggingface.co/amd/PARD2-Qwen3-14B) |
+
 ## Eval With Transformers+
 
 ### Llama3 Series
 ```
+#### PARD-1
 python3 -m pard.infer -c config/eval/llama3_eval.yaml
+
+#### PARD-2
+python3 -m pard.infer -f pard/pard2_infer.py -c config/eval/pard2_l3_eval.yaml
 ```
 
 ### DeepSeek-R1-Distill-Qwen Series
@@ -112,7 +126,11 @@ python3 -m pard.infer -c config/eval/dsrq_eval.yaml
 
 ### Qwen Series
 ```
+#### PARD-1
 python3 -m pard.infer -c config/eval/qwen_eval.yaml
+
+#### PARD-2
+python3 -m pard.infer -f pard/pard2_infer.py -c config/eval/pard2_q3_eval.yaml
 ```
 
 ### Arguments Description
@@ -165,7 +183,11 @@ PARD has already been integrated into vLLM. Official example: [Document](https:/
 ## Training Example
 
 ```
+#### PARD-1
 python3 -m pard.train -c config/train/example_qwen.yaml
+
+#### PARD-2
+python3 -m pard.train -f pard/pard2_train.py -c config/train/pard2_llama3.yaml
 ```
 
 ## Citation
